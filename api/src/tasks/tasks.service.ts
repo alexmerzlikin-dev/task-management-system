@@ -25,8 +25,12 @@ export class TasksService {
     return this.tasksRepository.findOne({ where: { id } });
   }
 
-  async deleteTask(taskId: number) {
-    await this.tasksRepository.delete(taskId);
+  async deleteTask(taskId: number, userId: number) {
+    const task = await this.tasksRepository.findOne({ where: { id: taskId, user: { id: userId } } });
+    if (!task) {
+      return { message: `Task with ID ${taskId} not found for user with ID ${userId}` };
+    }
+    await this.tasksRepository.delete({ id: taskId, user: { id: userId } });
     return { message: `Task with ID ${taskId} was deleted` };
   }
 } 

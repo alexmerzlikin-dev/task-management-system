@@ -47,6 +47,7 @@ export class TasksController {
   @Delete(':id')
   async deleteTask(@Request() req) {
     const taskId = await req.params.id;
-    return await this.tasksService.deleteTask(Number(taskId));
+    const userId = await req.user.sub;
+    return await this.tasksService.deleteTask(Number(taskId), Number(userId));
   }
 }
