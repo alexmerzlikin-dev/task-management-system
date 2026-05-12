@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Patch,
   Post,
@@ -35,10 +36,18 @@ export class TasksController {
     return tasks;
   }
 
+  // FIX: Получать ID задачи из URL, а не из тела запроса
   @UseGuards(AuthGuard)
   @Patch()
   async updateTaskStatus(@Body() updateTaskDto: UpdateTaskDto) {
     return await this.tasksService.updateTaskStatus(updateTaskDto);
   }
-}
 
+  @UseGuards(AuthGuard)
+  @Delete(':id')
+  async deleteTask(@Request() req) {
+    const taskId = await req.params.id;
+    const userId = await req.user.sub;
+    return await this.tasksService.deleteTask(Number(taskId), Number(userId));
+  }
+}
