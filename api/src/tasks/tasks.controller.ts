@@ -36,11 +36,12 @@ export class TasksController {
     return tasks;
   }
 
-  // FIX: Получать ID задачи из URL, а не из тела запроса
   @UseGuards(AuthGuard)
-  @Patch()
-  async updateTaskStatus(@Body() updateTaskDto: UpdateTaskDto) {
-    return await this.tasksService.updateTaskStatus(updateTaskDto);
+  @Patch(':id')
+  async updateTaskStatus(@Request() req, @Body() updateTaskDto: UpdateTaskDto) {
+    const taskId = await req.params.id;
+    const data = await { ...updateTaskDto, id: Number(taskId) };
+    return await this.tasksService.updateTaskStatus(data);
   }
 
   @UseGuards(AuthGuard)
