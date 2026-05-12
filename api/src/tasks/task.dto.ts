@@ -5,9 +5,16 @@ export enum TaskStatus {
 }
 
 export interface CreateTaskDto {
-  userId: number,
-  title: string,
-  status: TaskStatus,
-  description: string,
-  createdAt: Date,
+  userId: number;
+  title: string;
+  status: TaskStatus;
+  description: string;
+  createdAt: Date;
+}
+
+export interface UpdateTaskDto {
+  id: number;
+  title: string;
+  status: TaskStatus;
+  description: string;
 }

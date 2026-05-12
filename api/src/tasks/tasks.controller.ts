@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Patch,
   Post,
   Req,
   Request,
@@ -9,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { AuthGuard } from '../auth/auth.guard';
-import { type CreateTaskDto } from './task.dto';
+import { type UpdateTaskDto, type CreateTaskDto } from './task.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -32,6 +33,12 @@ export class TasksController {
     const userId = await req.user.sub;
     const tasks = await this.tasksService.getUserTasks(Number(userId));
     return tasks;
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch()
+  async updateTaskStatus(@Body() updateTaskDto: UpdateTaskDto) {
+    return await this.tasksService.updateTaskStatus(updateTaskDto);
   }
 }
 
