@@ -17,10 +17,4 @@ export class AuthController {
   async login(@Body() validateUser: ValidateUserDto) {
     return this.authService.validate(validateUser);
   }
-
-  @UseGuards(AuthGuard)
-  @Post('/tasks')
-  async getTasks(@Request() req) {
-    return req.user;
-  }
 }
