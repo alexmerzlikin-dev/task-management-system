@@ -24,4 +24,9 @@ export class TasksService {
     await this.tasksRepository.update(id, updateData);
     return this.tasksRepository.findOne({ where: { id } });
   }
+
+  async deleteTask(taskId: number) {
+    await this.tasksRepository.delete(taskId);
+    return { message: `Task with ID ${taskId} was deleted` };
+  }
 } 
