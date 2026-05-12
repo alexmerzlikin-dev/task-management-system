@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from '../users/user.dto';
+import { CreateUserDto, ValidateUserDto } from '../users/user.dto';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 
@@ -26,5 +26,10 @@ export class AuthService {
     const user = await this.userService.create(data);
 
     return { message: `User ${user.email} created successfully` };
+  }
+
+  async validate(validateUser: ValidateUserDto) {
+    return this.userService.validate(validateUser);
+    
   }
 }

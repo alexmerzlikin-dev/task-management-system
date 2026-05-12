@@ -1,5 +1,11 @@
 export interface CreateUserDto {
-  email: string
+  email: string,
   password: string,
   createdAt: Date,
+}
+
+export interface ValidateUserDto {
+  email: string,
+  password: string,
+
 }
