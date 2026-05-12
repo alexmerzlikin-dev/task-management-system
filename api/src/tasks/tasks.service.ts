@@ -14,4 +14,8 @@ export class TasksService {
     const task = this.tasksRepository.create(createTaskDto);
     return this.tasksRepository.save(task);
   }
+
+  getUserTasks(userId: number) {
+    return this.tasksRepository.find({ where: { user: { id: userId } } });
+  }
 } 
